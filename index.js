@@ -9,8 +9,8 @@ let moneySpin = 0;
 let isShaking = false;
 
 function preload() {
-  moneyImg = loadImage("money.png"); // Replace "money.png" with your image path
-  earthImg = loadImage("earth.png"); // Replace "earth.png" with your image path
+  moneyImg = loadImage("money.png");
+  earthImg = loadImage("earth.png");
 }
 
 function setup() {
@@ -28,10 +28,10 @@ function setup() {
   fft = new p5.FFT(0.1, 256);
   fft.setInput(mic);
 
-  video = createCapture(VIDEO);
+  video = createCapture();
   video.size(width, height);
   video.hide();
-  isPlaying = false;
+  isPlaying = true;
 
   // Text positioning
   textX = width / 2;
