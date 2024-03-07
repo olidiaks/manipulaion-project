@@ -44,6 +44,9 @@ function setup() {
 
 function draw() {
   background(backgroundColor);
+  
+  // Analyze the audio
+  fft.analyze();
 
   // Webcam feed manipulation (optional)
   if (isPlaying) {
@@ -60,6 +63,9 @@ function draw() {
   translate(width / 2, height * 2 / 3);
   rotate(moneySpin);
   scale(moneyScale);
+  if (isShaking) {
+    translate(random(-5, 5), random(-5, 5)); // Shaking effect
+  }
   image(moneyImg, 0, 0);
   pop();
 
@@ -72,7 +78,7 @@ function draw() {
 
   // Text with sound visualization
   let spectrum = fft.spectrum;
-  let level = map(spectrum[1], 0, 1, 0, 20);
+  let level = map(spectrum[1], 0, 255, 0, 20); // Corrected mapping
   textSize(32 + level);
   fill(textColor);
   noStroke();
@@ -81,19 +87,12 @@ function draw() {
 
   // Money image shaking based on audio level
   moneySpin += level * 0.1;
-  if (level > 0.1) {
-    isShaking = true;
-  } else {
-    isShaking = false;
-  }
-
-  if (isShaking) {
-    translate(random(-5, 5), random(-5, 5));
-  }
+  isShaking = level > 0.1;
 }
 
 function keyPressed() {
-  if (key === ' ') {
+  if (key ===  " ") {
     isPlaying = !isPlaying;
   }
 }
+
